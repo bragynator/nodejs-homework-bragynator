@@ -1,8 +1,8 @@
-const validateBody = (schema, message = "Missing required fields") => {
+const validateBody = (schema) => {
   const func = (req, res, next) => {
     const { error } = schema.validate(req.body);
     if (error) {
-      const validateError = new Error(message);
+      const validateError = new Error(error.message);
       validateError.status = 400;
       next(validateError);
     }
