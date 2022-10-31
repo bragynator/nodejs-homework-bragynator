@@ -15,6 +15,9 @@ const login = async (req, res) => {
   if (!passwordCompare) {
     return res.status(401).json({ message: "Email or password is wrong" });
   }
+  if (!user.verify) {
+    return res.status(401).json({ message: "Email is not verified" });
+  }
   const payload = {
     id: user._id,
   };
@@ -25,6 +28,7 @@ const login = async (req, res) => {
     user: {
       email: user.email,
       subscription: user.subscription,
+      avatarURL: user.avatarURL,
     },
   });
 };

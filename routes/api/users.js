@@ -6,6 +6,7 @@ const {
   signupUserSchema,
   loginUserSchema,
   changeSubscriptionUserSchema,
+  repeatVerificationSchema,
 } = require("../../models/user");
 
 const router = express.Router();
@@ -30,6 +31,14 @@ router.patch(
   authenticate,
   upload.single("avatar"),
   ctrl.updateAvatar
+);
+
+router.get("/verify/:verificationToken", ctrl.verify);
+
+router.post(
+  "/verify",
+  validateBody(repeatVerificationSchema),
+  ctrl.repeatVerification
 );
 
 module.exports = router;
